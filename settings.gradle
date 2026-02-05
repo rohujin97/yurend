@@ -1,4 +1,4 @@
-rootProject.name = 'yuren'
+rootProject.name = 'yurend'
 include 'api'
 include 'application'
 include 'domain'

@@ -6,14 +6,13 @@ jar {
     enabled = false
 }
 
-base.archivesName = 'calendar-service'
+base.archivesName = 'yurend'
 version = '25.50.0'
 
 dependencies {
     implementation(project(":application"))
     implementation(project(":domain"))
-    implementation(project(":infrastructure"))
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 }
