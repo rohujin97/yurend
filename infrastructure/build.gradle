@@ -6,30 +6,23 @@ jar {
     enabled = true
 }
 
-ext {
-    queryDslVersion = "5.0.0"
-}
-
 dependencies {
-    annotationProcessor(
-            "com.querydsl:querydsl-apt:${queryDslVersion}:jpa",
-            'jakarta.persistence:jakarta.persistence-api:2.2.3',
-            'jakarta.annotation:jakarta.annotation-api:1.3.5'
-    )
+    // 1. QueryDSL APT (Jakarta 버전 명시 필수)
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
 
+    // 2. 중요: JPA 라이브러리를 annotationProcessor가 참조할 수 있게 명시
+    // 혹은 jakarta.persistence-api를 직접 넣어줍니다.
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+
+    // 프로젝트 의존성
     implementation(project(":domain"))
     implementation(project(":application"))
 
-    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+    // QueryDSL 라이브러리
+    implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
 
+    // 부모(root)에서 이미 정의했다면 버전을 생략해도 되지만,
+    // 에러 방지를 위해 명확히 선언하는 것이 좋습니다.
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation "com.querydsl:querydsl-core:${queryDslVersion}"
-    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
-    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-    implementation "com.querydsl:querydsl-sql:${queryDslVersion}"
-
-    compileOnly "org.projectlombok:lombok:1.18.28"
-
-    runtimeOnly 'mysql:mysql-connector-java'
 }
